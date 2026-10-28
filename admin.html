@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة تحكم المتجر | عطور بَـرْق (BARQ PARFUMS)</title>
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800;900&family=Cairo:wght@400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#050811',
+              card: '#0a101f',
+              blue: '#0284c7',
+              electric: '#38bdf8',
+              gold: '#e2b765'
+            }
+          },
+          fontFamily: {
+            sans: ['Alexandria', 'Cairo', 'sans-serif'],
+            display: ['Cinzel', 'Alexandria', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #060913;
+      color: #f1f5f9;
+      font-family: 'Alexandria', 'Cairo', sans-serif;
+    }
+    .glass-card {
+      background: linear-gradient(180deg, rgba(14, 22, 42, 0.85) 0%, rgba(8, 14, 28, 0.95) 100%);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- PIN LOGIN OVERLAY -->
+  <!-- ========================================== -->
+  <div id="pinOverlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/95 backdrop-blur-md">
+    <div class="w-full max-w-sm glass-card rounded-3xl p-8 text-center space-y-6 shadow-2xl border border-sky-500/30">
+      
+      <div class="w-16 h-16 rounded-full mx-auto overflow-hidden border-2 border-sky-400 shadow-[0_0_20px_rgba(56,189,248,0.4)]">
+        <img src="assets/img/logo.jpg" alt="BARQ" class="w-full h-full object-cover">
+      </div>
+
+      <div>
+        <h2 class="text-xl font-black text-white">لوحة تحكم عطور بَـرْق</h2>
+        <p class="text-xs text-slate-400 mt-1">أدخل رمز الدخول السري (الافتراضي: 1234)</p>
+      </div>
+
+      <form onsubmit="handlePinLogin(event)" class="space-y-4">
+        <input type="password" id="pinInput" maxlength="10" placeholder="••••" required autofocus class="w-full bg-slate-900 border border-slate-700 text-center tracking-[0.5em] text-2xl font-bold text-white rounded-2xl py-3 outline-none focus:border-sky-400">
+        <div id="pinError" class="text-xs text-rose-400 font-bold hidden">رمز الدخول غير صحيح!</div>
+        <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-sm">
+          دخول لوحة التحكم
+        </button>
+      </form>
+
+      <a href="index.html" class="inline-block text-xs text-slate-500 hover:text-slate-300">العودة لصفحة المتجر</a>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MAIN ADMIN APP -->
+  <!-- ========================================== -->
+  <div id="adminApp" class="hidden flex-1 flex flex-col">
+    
+    <!-- TOP HEADER -->
+    <header class="glass-card border-b border-sky-500/10 sticky top-0 z-30 px-4 sm:px-8 py-3.5 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full overflow-hidden border border-sky-400/40">
+          <img src="assets/img/logo.png" alt="Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-display font-black text-lg text-white tracking-wider">BARQ ADMIN</h1>
+            <span class="text-[10px] bg-emerald-500/20 text-emerald-400 font-bold px-2 py-0.5 rounded-full border border-emerald-400/30">مفعل</span>
+          </div>
+          <p class="text-[10px] text-slate-400">إدارة المنتجات، الأسعار، الطلبات، والواتساب</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="index.html" target="_blank" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold px-4 py-2 rounded-xl text-xs border border-slate-700 flex items-center gap-1.5 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span class="hidden sm:inline">معاينة المتجر</span>
+        </a>
+
+        <button onclick="handleLogout()" class="text-slate-400 hover:text-rose-400 p-2 rounded-xl hover:bg-slate-800/80 transition-colors" title="تسجيل الخروج">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+      
+      <!-- STATS BAR -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        
+        <div class="glass-card p-4 rounded-2xl border border-sky-500/20 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center font-bold text-xl">📦</div>
+          <div>
+            <div id="statTotalProducts" class="text-xl font-black text-white">0</div>
+            <div class="text-[11px] text-slate-400">إجمالي العطور</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-emerald-500/20 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xl">💬</div>
+          <div class="min-w-0">
+            <div id="statWhatsappNumber" class="text-xs font-bold text-emerald-300 truncate font-mono">2010...</div>
+            <div class="text-[11px] text-slate-400">واتساب الطلبات</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-amber-500/20 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xl">🏷️</div>
+          <div>
+            <div id="statActiveCoupons" class="text-xl font-black text-amber-400">0</div>
+            <div class="text-[11px] text-slate-400">كوبونات الخصم</div>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl border border-purple-500/20 flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold text-xl">📋</div>
+          <div>
+            <div id="statTotalOrders" class="text-xl font-black text-purple-400">0</div>
+            <div class="text-[11px] text-slate-400">طلبات مسجلة</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- NAVIGATION TABS -->
+      <div class="flex items-center gap-2 border-b border-slate-800 pb-3 overflow-x-auto">
+        <button onclick="switchTab('products')" id="tabBtn-products" class="tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-500 text-white shadow-lg">
+          📦 إدارة المنتجات والأسعار
+        </button>
+        <button onclick="switchTab('settings')" id="tabBtn-settings" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white bg-slate-900/60 border border-slate-800">
+          ⚙️ إعدادات الواتساب والشحن
+        </button>
+        <button onclick="switchTab('orders')" id="tabBtn-orders" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white bg-slate-900/60 border border-slate-800">
+          📋 سجل الطلبات الواردة
+        </button>
+        <button onclick="switchTab('backup')" id="tabBtn-backup" class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-400 hover:text-white bg-slate-900/60 border border-slate-800">
+          💾 النسخ الاحتياطي
+        </button>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 1: PRODUCTS MANAGEMENT -->
+      <!-- ========================================== -->
+      <div id="tab-products" class="tab-content space-y-6">
+        
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-black text-white">قائمة العطور المعروضة</h2>
+            <p class="text-xs text-slate-400">أضف عطور جديدة، عدّل الأسعار والأحجام، أو احذف أي منتج بنقرة واحدة</p>
+          </div>
+
+          <button onclick="openProductFormModal()" class="w-full sm:w-auto bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-bold px-6 py-3 rounded-xl text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            <span>إضافة عطر جديد ⚡</span>
+          </button>
+        </div>
+
+        <!-- Products Table / Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="adminProductsContainer">
+          <!-- Injected via JS -->
+        </div>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: STORE & WHATSAPP SETTINGS -->
+      <!-- ========================================== -->
+      <div id="tab-settings" class="tab-content hidden max-w-3xl space-y-6">
+        
+        <form onsubmit="handleSaveSettings(event)" class="space-y-6">
+          
+          <!-- WhatsApp Phone Card -->
+          <div class="glass-card p-6 rounded-3xl space-y-4 border border-emerald-500/30">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl font-bold">💬</div>
+              <div>
+                <h3 class="font-bold text-white text-base">رقم الواتساب المستلم للطلبات</h3>
+                <p class="text-xs text-slate-400">هذا هو الرقم الذي تفتح عليه محادثة العميل وترسل إليه رسالة الطلب تلقائياً</p>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="block text-xs font-bold text-slate-300">رقم الهاتف (مع كود الدولة، مثال لمصر: 201014893062 أو 01012345678)</label>
+              <div class="flex gap-2">
+                <input type="text" id="settingWhatsapp" required placeholder="201014893062" class="flex-1 bg-slate-950 border border-slate-700 text-white rounded-xl p-3 text-sm font-mono outline-none focus:border-emerald-400" dir="ltr">
+                <button type="button" onclick="testWhatsappLink()" class="bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold px-4 py-3 rounded-xl text-xs border border-slate-700 transition-colors">
+                  تجربة الرابط ↗
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Store Name & Currency -->
+          <div class="glass-card p-6 rounded-3xl space-y-4">
+            <h3 class="font-bold text-white text-base">معلومات المتجر الأساسية</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div>
+                <label class="block font-bold text-slate-300 mb-1.5">اسم المتجر بالعربي</label>
+                <input type="text" id="settingStoreNameAr" required class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-300 mb-1.5">رمز العملة (مثال: ج.م أو EGP)</label>
+                <input type="text" id="settingCurrency" required class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-300 mb-1.5 text-xs">نص شريط الإعلانات أعلى الصفحة</label>
+              <textarea id="settingAnnouncement" rows="2" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 text-xs outline-none focus:border-sky-400"></textarea>
+            </div>
+          </div>
+
+          <!-- Shipping Rates -->
+          <div class="glass-card p-6 rounded-3xl space-y-4">
+            <h3 class="font-bold text-white text-base">أسعار الشحن للمحافظات</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div>
+                <label class="block font-bold text-slate-300 mb-1.5">القاهرة والجيزة (ج.م)</label>
+                <input type="number" id="settingShipCairo" required min="0" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-300 mb-1.5">الإسكندرية ومحافظات الدلتا (ج.م)</label>
+                <input type="number" id="settingShipDelta" required min="0" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-300 mb-1.5">الصعيد والقناة والحدود (ج.م)</label>
+                <input type="number" id="settingShipUpper" required min="0" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400">
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-slate-300 mb-1.5 text-xs">الحد الأدنى للشحن المجاني (ج.م)</label>
+              <input type="number" id="settingFreeShipThreshold" required min="0" class="w-full sm:w-1/2 bg-slate-950 border border-slate-700 text-white rounded-xl p-3 text-xs outline-none focus:border-sky-400">
+              <span class="text-[10px] text-slate-400 block mt-1">إذا تجاوزت السلة هذا المبلغ، يصبح الشحن مجانياً تلقائياً</span>
+            </div>
+          </div>
+
+          <!-- Admin PIN Change -->
+          <div class="glass-card p-6 rounded-3xl space-y-3">
+            <h3 class="font-bold text-white text-base">تغيير رمز الدخول للوحة التحكم (PIN)</h3>
+            <div class="w-full sm:w-1/2">
+              <label class="block font-bold text-slate-300 mb-1.5 text-xs">رمز الدخول الجديد</label>
+              <input type="password" id="settingAdminPin" placeholder="1234" class="w-full bg-slate-950 border border-slate-700 text-white rounded-xl p-3 text-xs outline-none focus:border-sky-400">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black py-4 rounded-2xl shadow-xl transition-all text-sm">
+            حفظ كافة الإعدادات بنجاح ⚡
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: ORDERS LOG -->
+      <!-- ========================================== -->
+      <div id="tab-orders" class="tab-content hidden space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xl font-black text-white">سجل الطلبات الواردة</h2>
+            <p class="text-xs text-slate-400">جميع الطلبات التي أرسلها العملاء عبر الموقع والواتساب</p>
+          </div>
+          <button onclick="clearOrdersLog()" class="text-xs text-rose-400 hover:underline">مسح السجل</button>
+        </div>
+
+        <div id="adminOrdersContainer" class="space-y-4">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: BACKUP & RESTORE -->
+      <!-- ========================================== -->
+      <div id="tab-backup" class="tab-content hidden max-w-xl space-y-6">
+        
+        <div class="glass-card p-6 rounded-3xl space-y-4">
+          <h3 class="font-bold text-white text-base">تنزيل نسخة احتياطية (Backup)</h3>
+          <p class="text-xs text-slate-400">قم بتنزيل ملف يحتوي على كافة عطور المتجر، الأسعار، والإعدادات لحمايتها أو نقلها لأي جهاز آخر.</p>
+          <button onclick="downloadBackup()" class="bg-sky-600 hover:bg-sky-500 text-white font-bold px-6 py-3 rounded-xl text-xs flex items-center gap-2">
+            <span>📥 تحميل ملف النسخة الاحتياطية (JSON)</span>
+          </button>
+        </div>
+
+        <div class="glass-card p-6 rounded-3xl space-y-4">
+          <h3 class="font-bold text-white text-base">استعادة نسخة سابقة (Restore)</h3>
+          <p class="text-xs text-slate-400">ارفع ملف JSON الذي قمت بتحميله سابقاً لاسترجاع كافة المنتجات والإعدادات.</p>
+          <input type="file" id="restoreFileInput" accept=".json" class="block w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-sky-300 hover:file:bg-slate-700">
+          <button onclick="restoreBackup()" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold px-6 py-3 rounded-xl text-xs border border-slate-700">
+            <span>🔄 استعادة البيانات الآن</span>
+          </button>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL: ADD / EDIT PRODUCT -->
+  <!-- ========================================== -->
+  <div id="productFormModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+    <div class="relative w-full max-w-2xl bg-slate-900 border border-sky-500/30 rounded-3xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto shadow-2xl space-y-5">
+      
+      <button onclick="closeProductFormModal()" class="absolute top-5 left-5 text-slate-400 hover:text-white p-2 rounded-full bg-slate-800 transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <h3 id="formModalTitle" class="text-xl font-black text-white">إضافة عطر جديد</h3>
+
+      <form id="productForm" onsubmit="handleProductFormSubmit(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="pId">
+
+        <!-- Names -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">اسم العطر بالعربي *</label>
+            <input type="text" id="pNameAr" required placeholder="مثال: بلاك بارق الملكي" class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">الاسم بالإنجليزي (اختياري)</label>
+            <input type="text" id="pNameEn" placeholder="مثال: Black Barq Royal" class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none">
+          </div>
+        </div>
+
+        <!-- Category & Badge -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">التصنيف *</label>
+            <select id="pCategory" required class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none">
+              <option value="men">عطور رجالية</option>
+              <option value="unisex">للجنسين</option>
+              <option value="women">عطور نسائية</option>
+              <option value="niche">نيش فاخر</option>
+              <option value="oriental">شرقي ملكي</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">الشارة المميزة (Badge)</label>
+            <input type="text" id="pBadge" placeholder="مثال: الأكثر مبيعاً 🔥 أو جديد ✨" class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none">
+          </div>
+        </div>
+
+        <!-- Tagline & Description -->
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">العنوان الفرعي / السلوجان</label>
+          <input type="text" id="pTagline" placeholder="مثال: EAU DE PARFUM · ثبات وفوحان يتجاوز 24 ساعة" class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">وصف العطر وسحره *</label>
+          <textarea id="pDescription" required rows="3" placeholder="اكتب وصفاً جذاباً لمشاعر ونفحات هذا العطر..." class="w-full bg-slate-950 border border-slate-700 focus:border-sky-400 text-white rounded-xl p-3 outline-none"></textarea>
+        </div>
+
+        <!-- Scent Pyramid -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+          <div class="font-bold text-sky-400">الهرم العطري والمكونات:</div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-slate-400 mb-1">الافتتاحية (Top):</label>
+              <input type="text" id="pNotesTop" placeholder="برغموت، تفاح أخضر" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">قلب العطر (Heart):</label>
+              <input type="text" id="pNotesHeart" placeholder="خشب الأرز، ياسمين" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">القاعدة (Base):</label>
+              <input type="text" id="pNotesBase" placeholder="عنبر، مسك، فانيليا" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white">
+            </div>
+          </div>
+        </div>
+
+        <!-- Prices for sizes -->
+        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+          <div class="font-bold text-amber-400">أسعار الأحجام المختلفة (بالجنيه المصري ج.م):</div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-slate-400 mb-1">10 مل (تستر):</label>
+              <input type="number" id="pPrice10" required min="1" placeholder="80" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">30 مل:</label>
+              <input type="number" id="pPrice30" required min="1" placeholder="380" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">50 مل (الأساسي):</label>
+              <input type="number" id="pPrice50" required min="1" placeholder="490" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold">
+            </div>
+            <div>
+              <label class="block text-slate-400 mb-1">100 مل:</label>
+              <input type="number" id="pPrice100" required min="1" placeholder="850" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white font-bold">
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Upload / Link -->
+        <div class="space-y-2">
+          <label class="block font-bold text-slate-300">صورة زجاجة العطر:</label>
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <input type="text" id="pImage" placeholder="رابط الصورة أو مسارها (مثال: assets/img/perfumes/...)" class="flex-1 bg-slate-950 border border-slate-700 text-white rounded-xl p-3 outline-none focus:border-sky-400 w-full">
+            <label class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold px-4 py-3 rounded-xl border border-slate-700 cursor-pointer text-xs whitespace-nowrap">
+              <span>اختر ملف من جهازك 📁</span>
+              <input type="file" id="imageFileInput" accept="image/*" class="hidden" onchange="handleImageFileSelect(event)">
+            </label>
+          </div>
+          <div id="imagePreviewContainer" class="hidden pt-2 flex items-center gap-3">
+            <img id="imagePreview" src="" alt="Preview" class="w-16 h-16 rounded-xl object-contain bg-slate-950 border border-slate-700">
+            <span class="text-[11px] text-emerald-400 font-bold">تم اختيار الصورة بنجاح ✓</span>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all text-sm mt-4">
+          حفظ العطر ونشره في المتجر ⚡
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <footer class="text-center py-6 text-xs text-slate-600 border-t border-slate-900">
+    لوحة تحكم عطور بَـرْق (BARQ PARFUMS) · نظام إدارة المنتجات والطلبات
+  </footer>
+
+  <script src="assets/admin.js"></script>
+</body>
+</html>

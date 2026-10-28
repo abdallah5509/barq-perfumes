@@ -1,0 +1,249 @@
+[
+  {
+    "id": "barq_golden",
+    "slug": "barq_golden",
+    "name_ar": "عطر جولدن (Golden)",
+    "name_en": "GOLDEN",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "الأكثر مبيعاً 🔥",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Jean Paul Gaultier - Le Male Elixir",
+    "inspired": "مستوحى من: Jean Paul Gaultier - Le Male Elixir",
+    "description": "عطر رجالي مغناطيسي وجذاب، مزيج ساحر يجمع بين دفء العسل والفانيلا مع انتعاش النعناع وجرأة التبغ وحبوب التونكا. مثالي للمناسبات المسائية والأوقات الرومانسية الواثقة.",
+    "notes": {
+      "top": "عسل ذهبي · فانيلا مدخنة",
+      "heart": "نعناع منعش · أوراق تبغ · حبوب تونكا",
+      "base": "لافندر · بنزوين"
+    },
+    "notes_list": [
+      "عسل ذهبي",
+      "فانيلا مدخنة",
+      "نعناع منعش",
+      "أوراق تبغ",
+      "حبوب تونكا",
+      "لافندر",
+      "بنزوين"
+    ],
+    "notes_image": "assets/perfumes/golden_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Magnetic, seductive, and deeply masculine — perfect for date nights, late outings, and confident evening moments.",
+    "prices": {
+      "30": 280,
+      "50": 390
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/golden.jpg",
+    "banner_image": "assets/perfumes/golden_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  },
+  {
+    "id": "barq_roma",
+    "slug": "barq_roma",
+    "name_ar": "عطر روما (Roma)",
+    "name_en": "ROMA",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "إصدار مكثف 🌟",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Valentino Uomo Born In Roma Intense",
+    "inspired": "مستوحى من: Valentino Uomo Born In Roma Intense",
+    "description": "عطر راقٍ وأنيق بنفحات كاريزمية عصرية؛ مزيج متناغم بين فانيلا البوربون الناعمة واللافندر العطري ونجيل الهند المدخن الذي يترك بصمة لا تُنسى في كل سهرة.",
+    "notes": {
+      "top": "فانيلا البوربون · أوركيد الفانيلا",
+      "heart": "أوركيد الفانيلا · لافندر أروماتي",
+      "base": "نجيل الهند المدخن"
+    },
+    "notes_list": [
+      "فانيلا البوربون",
+      "أوركيد الفانيلا",
+      "لافندر أروماتي",
+      "نجيل الهند المدخن"
+    ],
+    "notes_image": "assets/perfumes/roma_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Rich, elegant, and irresistibly magnetic — a sophisticated fusion of smooth vanilla, aromatic lavender, and smoky vetiver that exudes modern charisma.",
+    "prices": {
+      "30": 300,
+      "50": 400
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/roma.jpg",
+    "banner_image": "assets/perfumes/roma_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  },
+  {
+    "id": "barq_deep_blue",
+    "slug": "barq_deep_blue",
+    "name_ar": "عطر ديب بلو (Deep Blue)",
+    "name_en": "DEEP_BLUE",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "شتوي دافئ ❄️",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Emporio Armani - Stronger With You Intensely",
+    "inspired": "مستوحى من: Emporio Armani - Stronger With You Intensely",
+    "description": "عطر شتوي رومانسي دافئ لا يُقاوم؛ يمنحك شعور العناق الدافئ مع شرارة من الجاذبية والحماس بفضل مزيج القرفة والعنبر والفلفل الوردي وحبوب التونكا.",
+    "notes": {
+      "top": "قرفة حارة · فلفل وردي وأسود",
+      "heart": "مريمية · عنبر متوهج · تونكا",
+      "base": "فانيلا كريمية"
+    },
+    "notes_list": [
+      "قرفة حارة",
+      "فلفل وردي وأسود",
+      "مريمية",
+      "عنبر متوهج",
+      "تونكا",
+      "فانيلا كريمية"
+    ],
+    "notes_image": "assets/perfumes/deep_blue_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Addictive, warm, and deeply romantic — a scent that feels like a cozy embrace with a spark of passion. Perfect for date nights and winter outings.",
+    "prices": {
+      "30": 280,
+      "50": 390
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/deep_blue.jpg",
+    "banner_image": "assets/perfumes/deep_blue_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  },
+  {
+    "id": "barq_volt",
+    "slug": "barq_volt",
+    "name_ar": "عطر فولت (Volt)",
+    "name_en": "VOLT",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "نيش أرستقراطي 👑",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Parfums de Marly - Althaïr",
+    "inspired": "مستوحى من: Parfums de Marly - Althaïr",
+    "description": "تحفة فنية من الفانيلا المعتقة تمزج الأناقة الفرنسية بالدفء الحسي الفاخر. نغمات من البوربون والبرالين واللوز المحمص مع خشب الغاياك الأنيق لإطلالة استثنائية.",
+    "notes": {
+      "top": "بوربون معتق · خشب الغاياك",
+      "heart": "زعفران · شوكولاتة وبرالين · لوز محمص",
+      "base": "فانيلا مدغشقر · هيل وقرفة"
+    },
+    "notes_list": [
+      "بوربون معتق",
+      "خشب الغاياك",
+      "زعفران",
+      "شوكولاتة وبرالين",
+      "لوز محمص",
+      "فانيلا مدغشقر",
+      "هيل وقرفة"
+    ],
+    "notes_image": "assets/perfumes/volt_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Refined, creamy, and irresistibly warm — a modern vanilla masterpiece that blends elegance with sensual comfort.",
+    "prices": {
+      "30": 280,
+      "50": 390
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/volt.jpg",
+    "banner_image": "assets/perfumes/volt_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  },
+  {
+    "id": "barq_light",
+    "slug": "barq_light",
+    "name_ar": "عطر لايت (Light)",
+    "name_en": "LIGHT",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "ثبات وانتشار خيالي ⚡",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Paco Rabanne - Invictus Victory Elixir",
+    "inspired": "مستوحى من: Paco Rabanne - Invictus Victory Elixir",
+    "description": "عطر النصر والقوة بتركيبة كثيفة ساحرة تجمع بين انتعاش التوابل الحارة وسحر البخور العماني الدخاني وفخامة الفانيلا وحبوب التونكا لإطلالة مفعمة بالثقة.",
+    "notes": {
+      "top": "هيل أخضر · بخور عماني",
+      "heart": "فانيلا سوداء · فلفل أسود · تونكا مكثفة",
+      "base": "باتشولي · لافندر"
+    },
+    "notes_list": [
+      "هيل أخضر",
+      "بخور عماني",
+      "فانيلا سوداء",
+      "فلفل أسود",
+      "تونكا مكثفة",
+      "باتشولي",
+      "لافندر"
+    ],
+    "notes_image": "assets/perfumes/light_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Intense, powerful, and richly sophisticated — a victorious blend of spicy freshness and dark, smoky vanilla that commands attention.",
+    "prices": {
+      "30": 270,
+      "50": 370
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/light.png",
+    "banner_image": "assets/perfumes/light_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  },
+  {
+    "id": "barq_sauvage",
+    "slug": "barq_sauvage",
+    "name_ar": "عطر سوفاج (Sauvage)",
+    "name_en": "SAUVAGE",
+    "category": "men",
+    "category_ar": "عطور رجالية فاخرة",
+    "badge": "الأيقونة الأسطورية 🌪️",
+    "tagline": "EXTRAIT DE PARFUM · مستوحى من: Dior - Sauvage",
+    "inspired": "مستوحى من: Dior - Sauvage",
+    "description": "العطر الأيقوني الأكثر جاذبية وشهرة في العالم؛ انفجار منعش من برغموت كالابريا النضر مع حرارة الفلفل وقاعدة قوية مفعمة بالأمبروكسان الفاخر وخشب الأرز.",
+    "notes": {
+      "top": "برغموت كالابريا · فلفل سيتشوان",
+      "heart": "أمبروكسان فاخر · لافندر · خشب الأرز",
+      "base": "باتشولي"
+    },
+    "notes_list": [
+      "برغموت كالابريا",
+      "فلفل سيتشوان",
+      "أمبروكسان فاخر",
+      "لافندر",
+      "خشب الأرز",
+      "باتشولي"
+    ],
+    "notes_image": "assets/perfumes/sauvage_notes.jpg",
+    "concentration": "Extrait de Parfum - تركيز نيش فاخر",
+    "vibes": "Raw, magnetic, and fiercely charismatic — an untamed wave of fresh bergamot and spicy ambroxan that commands attention day and night.",
+    "prices": {
+      "30": 260,
+      "50": 360
+    },
+    "original_prices": {
+      "30": 350,
+      "50": 450
+    },
+    "image": "assets/perfumes/sauvage.jpg",
+    "banner_image": "assets/perfumes/sauvage_notes.jpg",
+    "in_stock": true,
+    "rating": 5.0,
+    "reviews_count": 48
+  }
+]

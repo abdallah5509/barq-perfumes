@@ -1,0 +1,37 @@
+{
+  "store_name": "BARQ PARFUMS",
+  "store_name_ar": "عطور بَـرْق",
+  "tagline": "الفخامة في كل رشة · Extrait de Parfum",
+  "whatsapp_number": "201014893062",
+  "currency": "ج.م",
+  "admin_pin": "1234",
+  "announcement": "⚡ خصم ترحيبي 10% بكود: BARQ10 · شحن مجاني للطلبات فوق 950 ج.م · الدفع عند الاستلام بعد المعاينة 💵",
+  "shipping": {
+    "cairo_giza": 45,
+    "alex_delta": 55,
+    "canal_upper_egypt": 70,
+    "free_shipping_threshold": 950
+  },
+  "coupons": [
+    {
+      "code": "BARQ10",
+      "discount_percent": 10,
+      "min_order": 0,
+      "active": true,
+      "description": "خصم ترحيبي 10% على إجمالي الطلب"
+    },
+    {
+      "code": "VIP20",
+      "discount_percent": 20,
+      "min_order": 1000,
+      "active": true,
+      "description": "خصم 20% للطلبات فوق 1000 ج.م"
+    }
+  ],
+  "sizes_info": [
+    {"size": "10", "name": "10 مل", "sub": "حجم الجيب والتجربة"},
+    {"size": "30", "name": "30 مل", "sub": "حجم عملي ومميز"},
+    {"size": "50", "name": "50 مل", "sub": "الحجم القياسي الأكثر طلباً"},
+    {"size": "100", "name": "100 مل", "sub": "الحجم الملكي الأكبر"}
+  ]
+}

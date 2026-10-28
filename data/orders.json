@@ -1,0 +1,33 @@
+[
+  {
+    "customer": {
+      "name": "عبدالله يونس",
+      "phone": "01283256717",
+      "altPhone": "",
+      "gov": "الشرقية",
+      "city": "ببلبيس",
+      "address": "شارع ابو نصيب",
+      "notes": ""
+    },
+    "items": [
+      {
+        "productId": "barq-deep-blue",
+        "name_ar": "عطر ديب بلو (DEEP BLUE)",
+        "name_en": "DEEP BLUE",
+        "size": "50",
+        "price": 450,
+        "qty": 1,
+        "image": "assets/img/barq_products/deep_blue_bottle.jpg"
+      }
+    ],
+    "subtotal": 450,
+    "discount": 0,
+    "coupon": null,
+    "shippingFee": 55,
+    "grandTotal": 505,
+    "date": "2026-10-15T20:17:41.888Z",
+    "id": "ORD-1792095461",
+    "created_at": "2026-10-15 23:17:41",
+    "status": "new"
+  }
+]
