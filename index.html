@@ -400,149 +400,65 @@
         </button>
       </div>
 
-      <!-- Main 3D Showcase Card (Split Layout) -->
-      <div class="bg-gradient-to-b from-gray-50/80 to-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden p-6 sm:p-8 lg:p-10">
+      <!-- Main 3D Showcase Card (Centered Clean Studio) -->
+      <div class="bg-gradient-to-b from-gray-50/80 to-white rounded-3xl border border-gray-200/90 shadow-sm overflow-hidden p-6 sm:p-8 lg:p-10 flex flex-col items-center justify-center max-w-3xl mx-auto">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div class="relative w-full aspect-square max-w-md sm:max-w-lg rounded-3xl border border-gray-300 overflow-hidden shadow-inner flex items-center justify-center"
+             style="background: radial-gradient(circle at 50% 36%, #f3f4f6 0%, #e2e5e9 45%, #cbd0d8 100%);">
           
-          <!-- 3D Viewport Column (7 Cols) -->
-          <div class="lg:col-span-7 flex flex-col items-center justify-center">
-            
-            <div class="relative w-full aspect-square max-w-md sm:max-w-lg rounded-3xl border border-gray-300 overflow-hidden shadow-inner flex items-center justify-center"
-                 style="background: radial-gradient(circle at 50% 36%, #f3f4f6 0%, #e2e5e9 45%, #cbd0d8 100%);">
-              
-              <!-- Canvas Container -->
-              <div id="perfume3dCanvas" class="w-full h-full cursor-grab active:cursor-grabbing select-none"></div>
+          <!-- Canvas Container -->
+          <div id="perfume3dCanvas" class="w-full h-full cursor-grab active:cursor-grabbing select-none"></div>
 
-              <!-- Overlay Guidance Tags -->
-              <div class="absolute top-4 right-4 z-10 flex flex-col items-end gap-1.5 pointer-events-none">
-                <span class="bg-white/95 backdrop-blur-md text-gray-800 text-[10px] font-bold px-3 py-1 rounded-full border border-gray-200 shadow-sm flex items-center gap-1.5">
-                  <span>🔄</span> <span>اسحب لتدوير الزجاجة 360°</span>
-                </span>
-                <span class="bg-[#4E3D97] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
-                  حجم أنيق متناسق 50 مل
-                </span>
-              </div>
-
-              <div class="absolute top-4 left-4 z-10 pointer-events-none">
-                <span id="sprayCounterBadge" class="bg-[#111111] text-white text-[10px] font-black px-3 py-1 rounded-full border border-white/20 shadow-sm flex items-center gap-1">
-                  <span>💨</span> <span>0 رشة</span>
-                </span>
-              </div>
-
-              <!-- Quick Touch Spray Tip at Bottom Center of Canvas -->
-              <div class="absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
-                <span class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                  <span>👆</span> <span>المس الزجاجة لفتح الغطاء أو تجربة الرشة</span>
-                </span>
-              </div>
-
-            </div>
-
-            <!-- Action Controls: Cap Detach/Attach + Natural Spray Trigger -->
-            <div class="mt-5 flex flex-wrap items-center justify-center gap-3 w-full">
-              <!-- Cap Toggle Button -->
-              <button id="capToggleBtn" 
-                      type="button" 
-                      onclick="BARQ_3D.toggleCap()" 
-                      class="bg-white hover:bg-gray-100 active:scale-95 text-gray-800 border border-gray-300 font-black text-xs sm:text-sm py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
-                <span id="capBtnIcon">🧴</span>
-                <span id="capBtnLabel">فتح الغطاء (Open Cap)</span>
-              </button>
-
-              <!-- Spray Button -->
-              <button id="spray3dBtn" 
-                      type="button" 
-                      onclick="BARQ_3D.spray()" 
-                      class="bg-[#4E3D97] hover:bg-[#3b2d75] active:scale-95 text-white font-black text-xs sm:text-sm py-3 px-7 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                <span>تجربة الرشّة الطبيعية 💨</span>
-              </button>
-
-              <span class="text-[11px] text-gray-500 font-semibold flex items-center gap-1">
-                <span>🔊</span> <span>صوت الرذاذ الحقيقي مفعّل</span>
-              </span>
-            </div>
-
+          <!-- Overlay Guidance Tags -->
+          <div class="absolute top-4 right-4 z-10 flex flex-col items-end gap-1.5 pointer-events-none">
+            <span class="bg-white/95 backdrop-blur-md text-gray-800 text-[10px] font-bold px-3 py-1 rounded-full border border-gray-200 shadow-sm flex items-center gap-1.5">
+              <span>🔄</span> <span>اسحب لتدوير الزجاجة 360°</span>
+            </span>
+            <span class="bg-[#4E3D97] text-white text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
+              حجم أنيق متناسق 50 مل
+            </span>
           </div>
 
-          <!-- Product Details & Actions Column (5 Cols) -->
-          <div class="lg:col-span-5 space-y-5">
-            
-            <div>
-              <div class="flex items-center gap-2 mb-2">
-                <span class="bg-[#4E3D97]/10 text-[#4E3D97] text-[10px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider">
-                  EXTRAIT DE PARFUM
-                </span>
-                <span class="text-xs text-amber-500 font-bold flex items-center gap-1">
-                  ★ 5.0 (تقييم ممتاز)
-                </span>
-              </div>
-
-              <h3 id="3dProductTitle" class="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">عطر ديب بلو (DEEP BLUE)</h3>
-              <p id="3dProductEn" class="text-xs font-bold text-[#4E3D97] uppercase tracking-wider font-display mt-1">DEEP BLUE · EXTRAIT DE PARFUM · 50 ML</p>
-              
-              <div class="mt-2">
-                <span id="3dProductInspired" class="inline-block bg-purple-50 text-[#4E3D97] border border-purple-100 text-[11px] font-bold px-3 py-1 rounded-xl">
-                  مستوحى من Stronger With You Intensely
-                </span>
-              </div>
-            </div>
-
-            <!-- Spec Badges (Intensity & Longevity like Lail) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2 text-xs">
-              <div id="3dIntensityBadge" class="bg-white border border-gray-200 p-2.5 rounded-2xl flex items-center gap-2 shadow-sm">
-                <span>⚡</span> <span><strong>INTENSITY:</strong> STRONG (قوي وملفت)</span>
-              </div>
-              <div id="3dLongevityBadge" class="bg-white border border-gray-200 p-2.5 rounded-2xl flex items-center gap-2 shadow-sm">
-                <span>🕒</span> <span><strong>LONGEVITY:</strong> +10 HOURS (أكثر من 10 ساعات)</span>
-              </div>
-              <div id="3dProjectionBadge" class="bg-white border border-gray-200 p-2.5 rounded-2xl flex items-center gap-2 shadow-sm sm:col-span-2 lg:col-span-1">
-                <span>➕</span> <span><strong>PROJECTION:</strong> +2 HOURS (انتشار واسع)</span>
-              </div>
-            </div>
-
-            <!-- Scent Notes Summary -->
-            <div class="bg-white p-4 rounded-2xl border border-gray-200/90 shadow-sm space-y-1.5">
-              <div class="flex items-center justify-between text-xs">
-                <span class="font-black text-gray-900 uppercase tracking-wider text-[11px]">الهرم العطري والمكونات:</span>
-                <span class="text-[10px] text-gray-400 font-semibold">NOTES & HINTS</span>
-              </div>
-              <p id="3dNotesSummary" class="text-xs text-gray-600 leading-relaxed">
-                فلفل وردي، جونيبر، قرفة سيلانية، فانيليا كريمية، عنبر دافئ، جلد سويدي (Suede)
-              </p>
-            </div>
-
-            <!-- Pricing & Action Buttons -->
-            <div class="pt-2 border-t border-gray-200/80 space-y-4">
-              
-              <div class="flex items-baseline justify-between">
-                <span class="text-xs text-gray-500 font-bold">السعر للحجم القياسي 50 مل:</span>
-                <div class="flex items-baseline gap-2">
-                  <span id="3dProductOldPrice" class="text-xs text-gray-400 line-through">650 ج.م</span>
-                  <span id="3dProductPrice" class="text-3xl font-black text-gray-900 font-display">450</span>
-                  <span class="text-xs font-bold text-gray-600">ج.م</span>
-                  <span class="bg-red-50 text-red-600 border border-red-200 text-[10px] font-black px-2 py-0.5 rounded-md">وفر 200 ج.م</span>
-                </div>
-              </div>
-
-              <!-- Buttons: Add To Cart + Instant WhatsApp Order -->
-              <div class="grid grid-cols-2 gap-2.5">
-                <button onclick="addToCart(BARQ_3D.getCurrent(), '50')" class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-bold py-3 px-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm hover:border-[#4E3D97]">
-                  <svg class="w-4 h-4 text-[#4E3D97]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                  <span>أضف هذا العطر للسلة</span>
-                </button>
-
-                <button onclick="instantBuy(BARQ_3D.getCurrent(), '50')" class="bg-[#4E3D97] hover:bg-[#3d2f78] text-white font-bold py-3 px-3 rounded-2xl text-xs transition-all shadow-md flex items-center justify-center gap-1.5">
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.174.449.741.964 1.2.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
-                  <span>طلب فوري ⚡</span>
-                </button>
-              </div>
-
-            </div>
-
+          <div class="absolute top-4 left-4 z-10 pointer-events-none">
+            <span id="sprayCounterBadge" class="bg-[#111111] text-white text-[10px] font-black px-3 py-1 rounded-full border border-white/20 shadow-sm flex items-center gap-1">
+              <span>💨</span> <span>0 رشة</span>
+            </span>
           </div>
 
+          <!-- Quick Touch Spray Tip at Bottom Center of Canvas -->
+          <div class="absolute bottom-3 inset-x-0 flex justify-center pointer-events-none">
+            <span class="bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
+              <span>👆</span> <span>المس الزجاجة لفتح الغطاء أو تجربة الرشة</span>
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Action Controls: Cap Detach/Attach + Natural Spray Trigger -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3 w-full">
+          <!-- Cap Toggle Button -->
+          <button id="capToggleBtn" 
+                  type="button" 
+                  onclick="BARQ_3D.toggleCap()" 
+                  class="bg-white hover:bg-gray-100 active:scale-95 text-gray-800 border border-gray-300 font-black text-xs sm:text-sm py-3 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
+            <span id="capBtnIcon">🧴</span>
+            <span id="capBtnLabel">فتح الغطاء (Open Cap)</span>
+          </button>
+
+          <!-- Spray Button -->
+          <button id="spray3dBtn" 
+                  type="button" 
+                  onclick="BARQ_3D.spray()" 
+                  class="bg-[#4E3D97] hover:bg-[#3b2d75] active:scale-95 text-white font-black text-xs sm:text-sm py-3 px-7 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>تجربة الرشّة الطبيعية 💨</span>
+          </button>
+        </div>
+
+        <div class="mt-3 text-center">
+          <span class="text-[11px] text-gray-500 font-semibold inline-flex items-center gap-1">
+            <span>🔊</span> <span>صوت الرذاذ الحقيقي مفعّل عند الرش</span>
+          </span>
         </div>
 
       </div>
