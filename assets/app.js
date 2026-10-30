@@ -202,13 +202,13 @@ function renderProducts() {
         <div class="relative aspect-square w-full bg-[#f6f6f8] rounded-2xl sm:rounded-3xl overflow-hidden flex items-center justify-center p-3 sm:p-5 border border-gray-100 transition-all duration-300 group-hover:shadow-md">
           
           <!-- Top-Left 'Inspired By' Badge -->
-          <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10 flex items-center gap-1 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full border border-gray-200/60 shadow-xs">
+          <div dir="ltr" class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10 flex items-center gap-1 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full border border-gray-200/60 shadow-xs">
             <span class="text-[9px] sm:text-[10px] text-gray-700 font-semibold italic">Inspired By</span>
             <span class="text-[9px] sm:text-[10px]">✨</span>
           </div>
 
           <!-- Top-Right Discount Badge -->
-          <div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
+          <div dir="ltr" class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
             <span class="bg-[#4E3D97] text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-xs">
               ${product.discount_label || '21% OFF!'}
             </span>
@@ -411,13 +411,13 @@ function openProductModal(productId) {
                alt="${product.name_ar}" 
                class="w-full h-full object-contain transition-all duration-300">
           
-          <div class="absolute top-3 right-3">
+          <div dir="ltr" class="absolute top-3 right-3">
             <span class="bg-[#4E3D97] text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm">
               ${product.discount_label || '21% OFF!'}
             </span>
           </div>
 
-          <div class="absolute top-3 left-3">
+          <div dir="ltr" class="absolute top-3 left-3">
             <span class="bg-white/90 backdrop-blur-md text-gray-800 text-[10px] font-bold px-2.5 py-1 rounded-full border border-gray-200 shadow-sm flex items-center gap-1">
               <span>★ 5.0</span>
             </span>
