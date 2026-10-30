@@ -473,31 +473,55 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       
       <!-- Section Title & Subtitle -->
-      <div class="text-center max-w-xl mx-auto mb-8 space-y-2">
+      <div class="text-center max-w-xl mx-auto mb-6 space-y-2">
         <span class="text-xs font-black text-[#4E3D97] tracking-widest uppercase">BARQ SIGNATURE COLLECTION</span>
         <h2 class="text-2xl sm:text-3xl font-black text-gray-900">تشكيلة عطور بَـرْق الحصرية</h2>
         <p class="text-xs sm:text-sm text-gray-500">اختر عطرك المفضل الآن واستمتع بثبات فوّاح وتوصيل سريع حتى باب منزلك</p>
       </div>
 
-      <!-- Filter Controls & Search -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 pb-4 border-b border-gray-100">
+      <!-- Filter and Sort Button (Exact Lail Style Pill) -->
+      <div class="flex justify-center mb-6">
+        <button id="filterSortBtn" 
+                onclick="toggleFilterDrawer()" 
+                class="bg-[#4E3D97] hover:bg-[#3b2d75] active:scale-95 text-white font-bold text-xs sm:text-sm py-3 px-8 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+          </svg>
+          <span>Filter and sort</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Filter Controls & Search Drawer -->
+      <div id="filterDrawer" class="hidden max-w-2xl mx-auto mb-8 p-5 bg-gray-50 rounded-3xl border border-gray-200/80 transition-all duration-300 space-y-4">
         
-        <!-- Category Pills -->
-        <div id="categoryFilterContainer" class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
-          <button data-cat="all" class="cat-pill active px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-[#111111] text-white shadow-sm">
-            الكل (All)
-          </button>
-          <button data-cat="men" class="cat-pill px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white text-gray-700 hover:text-gray-900 border border-gray-200 hover:border-gray-400">
-            عطور رجالية (For Him)
-          </button>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+          <!-- Category Pills -->
+          <div id="categoryFilterContainer" class="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
+            <button data-cat="all" class="cat-pill active px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-[#111111] text-white shadow-sm">
+              الكل (All)
+            </button>
+            <button data-cat="men" class="cat-pill px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white text-gray-700 hover:text-gray-900 border border-gray-200 hover:border-gray-400">
+              عطور رجالية (For Him)
+            </button>
+          </div>
+
+          <!-- Sort Dropdown -->
+          <div class="w-full sm:w-auto">
+            <select id="sortSelect" onchange="sortProducts(this.value)" class="w-full sm:w-auto bg-white border border-gray-200 rounded-full py-2 px-4 text-xs font-bold text-gray-700 focus:outline-none focus:border-[#4E3D97]">
+              <option value="default">الترتيب: الافتراضي</option>
+              <option value="price-asc">السعر: من الأقل للأعلى</option>
+              <option value="price-desc">السعر: من الأعلى للأقل</option>
+              <option value="popular">الأكثر تميزاً</option>
+            </select>
+          </div>
         </div>
 
-        <!-- Live Search -->
-        <div class="relative w-full sm:w-72">
+        <!-- Live Search Input -->
+        <div class="relative w-full">
           <input type="text" 
                  id="searchInput" 
-                 placeholder="ابحث بالاسم، النوتات العطرية..." 
-                 class="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 pr-10 pl-4 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#4E3D97] focus:bg-white transition-colors">
+                 placeholder="ابحث باسم العطر، المكونات، أو العطر المستوحى منه..." 
+                 class="w-full bg-white border border-gray-200 rounded-full py-2.5 pr-10 pl-4 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#4E3D97] transition-colors shadow-xs">
           <svg class="w-4 h-4 text-gray-400 absolute right-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
@@ -505,8 +529,8 @@
 
       </div>
 
-      <!-- Products Grid (Rendered by JS) -->
-      <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+      <!-- Products Grid (2 Columns on Mobile - Exactly Like Lail) -->
+      <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
         <!-- Injected dynamically via renderProducts() -->
       </div>
 
@@ -520,6 +544,19 @@
 
     </div>
   </section>
+
+  <!-- Floating 'Find Your Scent' Pill Button (Like Lail) -->
+  <div class="fixed bottom-6 inset-x-0 z-40 flex justify-center pointer-events-none">
+    <button type="button" 
+            onclick="focusSearchDrawer()" 
+            class="pointer-events-auto bg-[#4E3D97] hover:bg-[#3b2d75] active:scale-95 text-white font-bold text-xs sm:text-sm py-3 px-6 rounded-full shadow-2xl flex items-center gap-2 border border-white/20 transition-all duration-200">
+      <svg class="w-4 h-4 text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <span>Find Your Scent</span>
+      <span class="text-amber-300 text-xs">✦</span>
+    </button>
+  </div>
 
   <!-- ========================================== -->
   <!-- 8. WHY BARQ / QUALITY STANDARDS (LIKE LAIL) -->

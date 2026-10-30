@@ -2,7 +2,7 @@
   {
     "id": "barq_golden",
     "slug": "barq_golden",
-    "name_ar": "عطر جولدن (Golden)",
+    "name_ar": "عطر جولدن (GOLDEN)",
     "name_en": "GOLDEN",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
@@ -39,12 +39,17 @@
     "banner_image": "assets/perfumes/golden_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Le Male Elixir",
+    "intensity": "VERY STRONG (مغناطيسي جذاب)",
+    "longevity": "+12 HOURS (ثبات استثنائي)",
+    "projection": "+2.5 HOURS (هالة دافئة ساحرة)",
+    "discount_label": "21% OFF!"
   },
   {
     "id": "barq_roma",
     "slug": "barq_roma",
-    "name_ar": "عطر روما (Roma)",
+    "name_ar": "عطر روما (ROMA)",
     "name_en": "ROMA",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
@@ -78,13 +83,18 @@
     "banner_image": "assets/perfumes/roma_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Born in Roma Intense",
+    "intensity": "STRONG (أناقة كاريزمية)",
+    "longevity": "+12 HOURS (ثبات فائق)",
+    "projection": "+2 HOURS (انتشار راقٍ)",
+    "discount_label": "15% OFF!"
   },
   {
     "id": "barq_deep_blue",
     "slug": "barq_deep_blue",
-    "name_ar": "عطر ديب بلو (Deep Blue)",
-    "name_en": "DEEP_BLUE",
+    "name_ar": "عطر ديب بلو (DEEP BLUE)",
+    "name_en": "DEEP BLUE",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
     "badge": "شتوي دافئ ❄️",
@@ -119,12 +129,17 @@
     "banner_image": "assets/perfumes/deep_blue_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Stronger With You Intensely",
+    "intensity": "VERY STRONG (دفء رومانسي)",
+    "longevity": "+12 HOURS (ثبات شتوي)",
+    "projection": "+2.5 HOURS (هالة آسرة)",
+    "discount_label": "21% OFF!"
   },
   {
     "id": "barq_volt",
     "slug": "barq_volt",
-    "name_ar": "عطر فولت (Volt)",
+    "name_ar": "عطر فولت (VOLT)",
     "name_en": "VOLT",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
@@ -161,12 +176,17 @@
     "banner_image": "assets/perfumes/volt_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Althaïr (PdM)",
+    "intensity": "INTENSE (نيش أرستقراطي)",
+    "longevity": "+14 HOURS (ثبات ملكي)",
+    "projection": "+3 HOURS (فوحان ساحر)",
+    "discount_label": "21% OFF!"
   },
   {
     "id": "barq_light",
     "slug": "barq_light",
-    "name_ar": "عطر لايت (Light)",
+    "name_ar": "عطر لايت (LIGHT)",
     "name_en": "LIGHT",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
@@ -203,12 +223,17 @@
     "banner_image": "assets/perfumes/light_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Invictus Victory Elixir",
+    "intensity": "POWERFUL (قوة وجاذبية)",
+    "longevity": "+12 HOURS (ثبات أسطوري)",
+    "projection": "+2.5 HOURS (انتشار صارخ)",
+    "discount_label": "23% OFF!"
   },
   {
     "id": "barq_sauvage",
     "slug": "barq_sauvage",
-    "name_ar": "عطر سوفاج (Sauvage)",
+    "name_ar": "عطر سوفاج (SAUVAGE)",
     "name_en": "SAUVAGE",
     "category": "men",
     "category_ar": "عطور رجالية فاخرة",
@@ -244,6 +269,11 @@
     "banner_image": "assets/perfumes/sauvage_notes.jpg",
     "in_stock": true,
     "rating": 5.0,
-    "reviews_count": 48
+    "reviews_count": 48,
+    "inspired_short": "Dior Sauvage",
+    "intensity": "STRONG (انتعاش أيقوني)",
+    "longevity": "+10 HOURS (ثبات مستمر)",
+    "projection": "+2.5 HOURS (هالة فوّاحة)",
+    "discount_label": "26% OFF!"
   }
 ]

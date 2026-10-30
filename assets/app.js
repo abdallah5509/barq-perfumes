@@ -150,7 +150,7 @@ function updateWhatsAppLinks() {
 }
 
 // ==========================================
-// Product Rendering & Filtering (Lail Luxury Style)
+// Product Rendering & Filtering (Lail Mobile 2-Column Luxury Style)
 // ==========================================
 function renderProducts() {
   const container = document.getElementById("productsGrid");
@@ -165,6 +165,8 @@ function renderProducts() {
     const matchSearch = !q || 
       (p.name_ar && p.name_ar.toLowerCase().includes(q)) ||
       (p.name_en && p.name_en.toLowerCase().includes(q)) ||
+      (p.inspired_short && p.inspired_short.toLowerCase().includes(q)) ||
+      (p.inspired && p.inspired.toLowerCase().includes(q)) ||
       (p.description && p.description.toLowerCase().includes(q)) ||
       (p.notes && (
         (p.notes.top && p.notes.top.toLowerCase().includes(q)) ||
@@ -183,148 +185,73 @@ function renderProducts() {
   if (noFound) noFound.classList.add("hidden");
 
   container.innerHTML = filtered.map(product => {
-    const selectedSize = state.productSizesSelected[product.id] || "50";
-    const currentPrice = product.prices?.[selectedSize] || product.prices?.["50"] || Object.values(product.prices || {})[0] || 390;
-    const oldPrice = product.original_prices?.[selectedSize] || (selectedSize === "50" ? 450 : 350);
-    const currency = state.settings.currency || "ج.م";
+    const prices = Object.values(product.prices || { "30": 280, "50": 390 });
+    const minPrice = Math.min(...prices);
+    const maxPrice = Math.max(...prices);
+
+    const origPrices = Object.values(product.original_prices || { "30": 350, "50": 450 });
+    const minOrig = Math.min(...origPrices);
+    const maxOrig = Math.max(...origPrices);
 
     return `
-      <article class="lail-card bg-white rounded-3xl border border-gray-100 overflow-hidden flex flex-col justify-between group shadow-sm hover:shadow-2xl transition-all duration-500" data-product-id="${product.id}">
+      <article class="lail-card group cursor-pointer flex flex-col select-none transition-all duration-300" 
+               onclick="openProductModal('${product.id}')" 
+               data-product-id="${product.id}">
         
-        <!-- Image & Badges Container -->
-        <div class="relative aspect-square w-full bg-[#fbfbfb] overflow-hidden flex items-center justify-center p-6 sm:p-8 border-b border-gray-100/80">
+        <!-- Image Box (Square Container, Rounded, Soft Neutral BG) -->
+        <div class="relative aspect-square w-full bg-[#f6f6f8] rounded-2xl sm:rounded-3xl overflow-hidden flex items-center justify-center p-3 sm:p-5 border border-gray-100 transition-all duration-300 group-hover:shadow-md">
           
-          <!-- Top Badges (Intensity & Longevity like Lail) -->
-          <div class="absolute top-4 right-4 z-10 flex flex-col items-end gap-1.5">
-            <span class="lail-badge-indigo bg-[#4E3D97] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm flex items-center gap-1">
-              <span>⚡</span> <span>INTENSITY: STRONG</span>
-            </span>
-            ${product.badge ? `
-              <span class="bg-amber-100 text-amber-900 border border-amber-200 text-[10px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
-                ${product.badge}
-              </span>
-            ` : ''}
+          <!-- Top-Left 'Inspired By' Badge -->
+          <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 z-10 flex items-center gap-1 bg-white/95 backdrop-blur-sm px-2 py-0.5 rounded-full border border-gray-200/60 shadow-xs">
+            <span class="text-[9px] sm:text-[10px] text-gray-700 font-semibold italic">Inspired By</span>
+            <span class="text-[9px] sm:text-[10px]">✨</span>
           </div>
 
-          <!-- Longevity badge -->
-          <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
-            <span class="bg-gray-100/90 backdrop-blur-md text-gray-800 text-[10px] font-bold px-2.5 py-1 rounded-full border border-gray-200 flex items-center gap-1 shadow-sm">
-              <span>🕒</span> <span>LONGEVITY: +10H</span>
-            </span>
-            <span class="bg-emerald-50 text-emerald-700 text-[9px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-200/60 flex items-center gap-1">
-              <span>➕</span> <span>PROJECTION: +2H</span>
+          <!-- Top-Right Discount Badge -->
+          <div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-10">
+            <span class="bg-[#4E3D97] text-white text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded-full shadow-xs">
+              ${product.discount_label || '21% OFF!'}
             </span>
           </div>
 
-          <!-- Perfume Image with smooth zoom -->
+          <!-- Bottle Image with Smooth Hover Zoom -->
           <img src="${product.image || 'assets/img/logo.jpg'}" 
-               alt="${product.name_ar} - BARQ Fragrances" 
-               loading="lazy"
-               class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105">
-          
-          <!-- Quick Details Button Overlay -->
-          <button onclick="openProductModal('${product.id}')" class="absolute inset-x-6 bottom-4 bg-[#111111]/90 hover:bg-[#4E3D97] text-white text-xs font-bold py-2.5 rounded-2xl border border-white/20 opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl backdrop-blur-sm flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-            <span>تفاصيل النوتات والهرم العطري</span>
+               alt="${product.name_en}" 
+               loading="lazy" 
+               class="w-full h-full object-contain p-2 sm:p-3 transition-transform duration-500 group-hover:scale-105">
+
+          <!-- Bottom-Right Circular Quick Details / Action Button -->
+          <button type="button" 
+                  onclick="event.stopPropagation(); openProductModal('${product.id}')" 
+                  class="absolute bottom-2.5 right-2.5 sm:bottom-3 sm:right-3 w-7 h-7 sm:w-8 sm:h-8 bg-white/95 hover:bg-white text-gray-800 rounded-full shadow-md border border-gray-200 flex items-center justify-center transition-all duration-200 active:scale-95" 
+                  title="عرض التفاصيل والنوتات">
+            <svg class="w-3.5 h-3.5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+            </svg>
           </button>
         </div>
 
-        <!-- Content Area -->
-        <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
-          
-          <div>
-            <!-- Header title & English label -->
-            <div class="flex items-baseline justify-between gap-2">
-              <h3 class="font-black text-xl text-gray-900 group-hover:text-[#4E3D97] transition-colors">${product.name_ar}</h3>
-              <span class="font-display text-xs text-gray-400 tracking-wider font-bold uppercase">${product.name_en || ''}</span>
-            </div>
+        <!-- Typography Below Image (Centered, Clean Luxury) -->
+        <div class="pt-2.5 sm:pt-3 pb-1 text-center space-y-1">
+          <!-- Line 1: Short Inspiration Name -->
+          <p class="text-[11px] sm:text-xs text-gray-500 font-medium truncate px-1 leading-tight">
+            ${product.inspired_short || product.inspired || ''}
+          </p>
 
-            <!-- Tagline / Inspiration -->
-            <p class="text-[12px] text-[#4E3D97] font-bold mt-1 tracking-wide">
-              ${product.tagline || 'EXTRAIT DE PARFUM · NATURAL LUXURY SPRAY'}
-            </p>
+          <!-- Line 2: Perfume Name in Bold Uppercase -->
+          <h3 class="text-xs sm:text-sm font-black text-gray-900 tracking-wider uppercase font-display">
+            ${product.name_en}
+          </h3>
 
-            <!-- Description -->
-            <p class="text-xs text-gray-600 mt-2 line-clamp-2 leading-relaxed">
-              ${product.description}
-            </p>
-
-            <!-- NOTES & HINTS section like Lail -->
-            ${product.notes ? `
-              <div class="mt-3 pt-3 border-t border-gray-100 space-y-1.5">
-                <div class="flex items-center justify-between text-[11px]">
-                  <span class="font-bold text-gray-800 uppercase tracking-wider text-[10px]">NOTES & HINTS</span>
-                  <span class="text-[10px] text-gray-400 font-medium">الهرم العطري</span>
-                </div>
-                <div class="bg-gray-50 rounded-xl p-2.5 text-[11px] text-gray-600 border border-gray-100 flex flex-col gap-1">
-                  <div class="truncate"><strong class="text-gray-900">القمة:</strong> ${product.notes.top || ''}</div>
-                  <div class="truncate"><strong class="text-gray-900">القلب:</strong> ${product.notes.heart || ''}</div>
-                  <div class="truncate"><strong class="text-gray-900">القاعدة:</strong> ${product.notes.base || ''}</div>
-                </div>
-              </div>
-            ` : ''}
+          <!-- Line 3: Price Range & Crossed-out Original Price -->
+          <div class="flex flex-col items-center justify-center leading-tight">
+            <span class="text-xs sm:text-sm font-black text-[#4E3D97]">
+              LE ${minPrice}.00 – LE ${maxPrice}.00
+            </span>
+            <span class="text-[10px] sm:text-xs text-gray-400 line-through">
+              LE ${minOrig}.00 – LE ${maxOrig}.00
+            </span>
           </div>
-
-          <!-- Size Selector Buttons -->
-          <div>
-            <div class="flex items-center justify-between text-[11px] text-gray-500 mb-1.5">
-              <span>اختر الحجم:</span>
-              <span class="text-[#4E3D97] font-bold">${selectedSize} مل</span>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-2">
-              ${Object.keys(product.prices || {}).map(size => {
-                const isSelected = size === selectedSize;
-                const hasPrice = product.prices[size];
-                return `
-                  <button type="button" 
-                          onclick="selectProductSize('${product.id}', '${size}')" 
-                          class="py-2 px-2 rounded-xl text-xs font-bold transition-all text-center border ${
-                            isSelected 
-                              ? 'bg-[#4E3D97] border-[#4E3D97] text-white shadow-md' 
-                              : 'bg-white border-gray-200 text-gray-700 hover:border-gray-400 hover:text-gray-900'
-                          }">
-                    ${size} مل · ${hasPrice} ${currency}
-                  </button>
-                `;
-              }).join('')}
-            </div>
-          </div>
-
-          <!-- Price & Action Buttons -->
-          <div class="pt-3 border-t border-gray-100 space-y-3">
-            
-            <div class="flex items-baseline justify-between">
-              <span class="text-xs text-gray-500">السعر:</span>
-              <div class="flex items-baseline gap-2">
-                <span class="text-xs text-gray-400 line-through">${oldPrice} ${currency}</span>
-                <span class="font-black text-2xl text-gray-900 font-display">${currentPrice}</span>
-                <span class="text-xs font-bold text-gray-600">${currency}</span>
-                <span class="bg-red-50 text-red-600 border border-red-200 text-[10px] font-black px-1.5 py-0.5 rounded-md">وفر ${oldPrice - currentPrice} ${currency}</span>
-              </div>
-            </div>
-
-            <!-- Buttons: Add To Cart + Instant WhatsApp Order -->
-            <div class="grid grid-cols-2 gap-2">
-              <button onclick="addToCart('${product.id}', '${selectedSize}')" class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-bold py-2.5 px-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm hover:border-[#4E3D97]">
-                <svg class="w-4 h-4 text-[#4E3D97]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                <span>أضف للسلة</span>
-              </button>
-
-              <button onclick="instantBuy('${product.id}', '${selectedSize}')" class="bg-[#4E3D97] hover:bg-[#3d2f78] text-white font-bold py-2.5 px-3 rounded-2xl text-xs transition-all shadow-md flex items-center justify-center gap-1.5">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.353.101.174.449.741.964 1.2.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
-                <span>شراء فوري ⚡</span>
-              </button>
-            </div>
-
-            <!-- 3D Studio Interactive Button -->
-            <button onclick="showIn3D('${product.id}')" class="w-full bg-gray-50 hover:bg-purple-50 text-gray-800 hover:text-[#4E3D97] border border-gray-200 hover:border-[#4E3D97]/40 font-bold py-2.5 px-3 rounded-2xl text-[11px] transition-all flex items-center justify-center gap-1.5 shadow-sm">
-              <span>✨ استعراض الزجاجة في استوديو 3D وتجربة الرشّة</span>
-              <span>←</span>
-            </button>
-
-          </div>
-
         </div>
 
       </article>
@@ -332,9 +259,39 @@ function renderProducts() {
   }).join('');
 }
 
-// Select size on product card
-function selectProductSize(productId, size) {
-  state.productSizesSelected[productId] = size;
+// Drawer & Filter Navigation Helpers
+function toggleFilterDrawer() {
+  const drawer = document.getElementById("filterDrawer");
+  if (!drawer) return;
+  drawer.classList.toggle("hidden");
+  if (!drawer.classList.contains("hidden")) {
+    drawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+function focusSearchDrawer() {
+  const drawer = document.getElementById("filterDrawer");
+  if (drawer && drawer.classList.contains("hidden")) {
+    drawer.classList.remove("hidden");
+  }
+  const input = document.getElementById("searchInput");
+  if (input) {
+    input.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => input.focus(), 300);
+  }
+}
+
+function sortProducts(criteria) {
+  if (criteria === "price-asc") {
+    state.products.sort((a, b) => (a.prices?.["50"] || 390) - (b.prices?.["50"] || 390));
+  } else if (criteria === "price-desc") {
+    state.products.sort((a, b) => (b.prices?.["50"] || 390) - (a.prices?.["50"] || 390));
+  } else if (criteria === "popular") {
+    state.products.sort((a, b) => (b.reviews_count || 48) - (a.reviews_count || 48));
+  } else {
+    // Default
+    state.products.sort((a, b) => a.id.localeCompare(b.id));
+  }
   renderProducts();
 }
 
@@ -368,101 +325,190 @@ function showIn3D(productId) {
       if (window.BARQ_3D) {
         window.BARQ_3D.spray();
       }
-    }, 600);
+    }, 700);
   }
 }
 
+// Switch Image Tab in Modal (Bottle vs Scent Notes Infographic)
+function switchModalTab(tab, bottleSrc, notesSrc) {
+  const img = document.getElementById("modalActiveImg");
+  const tabBottle = document.getElementById("modalTabBottle");
+  const tabNotes = document.getElementById("modalTabNotes");
+  if (!img) return;
+
+  if (tab === 'bottle') {
+    img.src = bottleSrc;
+    img.className = "w-full h-full object-contain transition-all duration-300";
+    if (tabBottle) {
+      tabBottle.className = "flex-1 py-2 px-3 text-xs font-black rounded-xl bg-[#4E3D97] text-white shadow-sm transition-all flex items-center justify-center gap-1.5";
+    }
+    if (tabNotes) {
+      tabNotes.className = "flex-1 py-2 px-3 text-xs font-bold rounded-xl bg-white text-gray-700 hover:text-gray-900 border border-gray-200 transition-all flex items-center justify-center gap-1.5";
+    }
+  } else {
+    img.src = notesSrc;
+    img.className = "w-full h-full object-cover rounded-2xl transition-all duration-300";
+    if (tabNotes) {
+      tabNotes.className = "flex-1 py-2 px-3 text-xs font-black rounded-xl bg-[#4E3D97] text-white shadow-sm transition-all flex items-center justify-center gap-1.5";
+    }
+    if (tabBottle) {
+      tabBottle.className = "flex-1 py-2 px-3 text-xs font-bold rounded-xl bg-white text-gray-700 hover:text-gray-900 border border-gray-200 transition-all flex items-center justify-center gap-1.5";
+    }
+  }
+}
+
+// Select size in modal and update price labels
+function modalSelectSize(productId, size) {
+  state.productSizesSelected[productId] = size;
+  openProductModal(productId);
+}
+
 // ==========================================
-// Product Details Modal (Lail Luxury Modal)
+// Product Details Modal (Full Notes & Specs Inside)
 // ==========================================
 function openProductModal(productId) {
   const product = state.products.find(p => p.id === productId);
   if (!product) return;
 
   const selectedSize = state.productSizesSelected[product.id] || "50";
-  const currentPrice = product.prices?.[selectedSize] || product.prices?.["50"] || Object.values(product.prices || {})[0] || 390;
-  const oldPrice = product.original_prices?.[selectedSize] || (selectedSize === "50" ? 450 : 350);
+  const currentPrice = product.prices?.[selectedSize] || product.prices?.["50"] || 390;
+  const oldPrice = product.original_prices?.[selectedSize] || 450;
+  const savings = Math.max(0, oldPrice - currentPrice);
   const currency = state.settings.currency || "ج.م";
 
   const modal = document.getElementById("productModal");
   const content = document.getElementById("productModalContent");
+  if (!modal || !content) return;
+
+  const bottleImg = product.image || 'assets/img/logo.jpg';
+  const notesImg = product.notes_image || product.banner_image || product.image;
 
   content.innerHTML = `
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
       
-      <!-- Bottle Image / Official Banner -->
-      <div class="space-y-4">
-        <div class="relative aspect-square w-full rounded-3xl bg-[#fbfbfb] border border-gray-200 overflow-hidden flex items-center justify-center p-8">
-          <img id="modalMainImg" src="${product.image || 'assets/img/logo.jpg'}" alt="${product.name_ar}" class="w-full h-full object-contain">
+      <!-- Visuals Area with Tabs: Bottle Image vs Visual Pyramid Infographic -->
+      <div class="space-y-3">
+        <!-- Switcher Tabs -->
+        <div class="flex items-center gap-2 p-1 bg-gray-100 rounded-2xl">
+          <button type="button" 
+                  id="modalTabBottle"
+                  onclick="switchModalTab('bottle', '${bottleImg}', '${notesImg}')"
+                  class="flex-1 py-2 px-3 text-xs font-black rounded-xl bg-[#4E3D97] text-white shadow-sm transition-all flex items-center justify-center gap-1.5">
+            <span>🧴</span> <span>صورة الزجاجة</span>
+          </button>
+          <button type="button" 
+                  id="modalTabNotes"
+                  onclick="switchModalTab('notes', '${bottleImg}', '${notesImg}')"
+                  class="flex-1 py-2 px-3 text-xs font-bold rounded-xl bg-white text-gray-700 hover:text-gray-900 border border-gray-200 transition-all flex items-center justify-center gap-1.5">
+            <span>🌿</span> <span>الهرم العطري المصور</span>
+          </button>
+        </div>
+
+        <!-- Main Display Container -->
+        <div class="relative aspect-square w-full rounded-3xl bg-[#f8f9fa] border border-gray-200 overflow-hidden flex items-center justify-center p-4 sm:p-6 shadow-inner">
+          <img id="modalActiveImg" 
+               src="${bottleImg}" 
+               alt="${product.name_ar}" 
+               class="w-full h-full object-contain transition-all duration-300">
           
-          <div class="absolute top-4 right-4">
-            <span class="bg-[#4E3D97] text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm">
-              ⚡ INTENSITY: STRONG
+          <div class="absolute top-3 right-3">
+            <span class="bg-[#4E3D97] text-white text-[10px] font-black px-2.5 py-1 rounded-full shadow-sm">
+              ${product.discount_label || '21% OFF!'}
             </span>
           </div>
 
-          <div class="absolute top-4 left-4">
-            <span class="bg-gray-100 text-gray-800 text-[10px] font-bold px-3 py-1 rounded-full border border-gray-200 shadow-sm">
-              🕒 LONGEVITY: +10H
+          <div class="absolute top-3 left-3">
+            <span class="bg-white/90 backdrop-blur-md text-gray-800 text-[10px] font-bold px-2.5 py-1 rounded-full border border-gray-200 shadow-sm flex items-center gap-1">
+              <span>★ 5.0</span>
             </span>
           </div>
         </div>
 
-        ${product.banner_image ? `
-          <div class="rounded-2xl overflow-hidden border border-gray-200 h-24 bg-gray-50">
-            <img src="${product.banner_image}" alt="${product.name_ar} Poster" class="w-full h-full object-cover">
-          </div>
-        ` : ''}
+        <div class="text-center">
+          <span class="text-[11px] text-gray-500 font-medium">
+            💡 اضغط على "الهرم العطري المصور" لعرض بوستر المكونات والنوتات الطبيعية
+          </span>
+        </div>
       </div>
 
-      <!-- Details & Actions -->
-      <div class="space-y-5">
+      <!-- Details & Actions Area -->
+      <div class="space-y-4">
+        
+        <!-- Header Info -->
         <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="bg-[#4E3D97]/10 text-[#4E3D97] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full">
-              ${product.category_ar || 'عطر فاخر'}
+          <div class="flex flex-wrap items-center gap-2 mb-1.5">
+            <span class="bg-[#4E3D97]/10 text-[#4E3D97] text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              EXTRAIT DE PARFUM
             </span>
-            <span class="text-xs text-amber-500 font-bold flex items-center gap-1">
-              ★ 5.0 (42+ تقييم موثق)
+            <span class="text-amber-500 text-xs font-bold flex items-center gap-1">
+              ★ 5.0 (تقييم ممتاز)
             </span>
           </div>
 
-          <h2 class="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">${product.name_ar}</h2>
-          <p class="font-display text-sm text-[#4E3D97] font-bold tracking-wider mt-1 uppercase">${product.name_en || ''} — ${product.tagline || ''}</p>
+          <h2 class="text-2xl sm:text-3xl font-black text-gray-900 leading-tight">
+            ${product.name_ar}
+          </h2>
+
+          <div class="text-xs font-extrabold text-[#4E3D97] uppercase tracking-wider mt-0.5">
+            ${product.name_en} · EXTRAIT DE PARFUM · ${selectedSize} ML
+          </div>
+
+          <div class="mt-2 inline-flex items-center gap-1.5 bg-purple-50 text-[#4E3D97] border border-purple-200/70 text-xs font-bold px-3 py-1 rounded-xl">
+            <span>✨</span>
+            <span>${product.inspired || ('مستوحى من: ' + product.inspired_short)}</span>
+          </div>
         </div>
 
-        <!-- Description -->
-        <p class="text-xs sm:text-sm text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-2xl border border-gray-100">
-          ${product.description}
-        </p>
+        <!-- Performance Specs Badges (From user request screenshot) -->
+        <div class="space-y-1.5">
+          <div class="bg-gray-50 border border-gray-200/90 rounded-2xl p-2.5 flex items-center justify-between text-xs">
+            <span class="font-extrabold text-gray-900">⚡ INTENSITY:</span>
+            <span class="text-gray-700 font-semibold">${product.intensity || 'VERY STRONG (مغناطيسي جذاب)'}</span>
+          </div>
+          <div class="bg-gray-50 border border-gray-200/90 rounded-2xl p-2.5 flex items-center justify-between text-xs">
+            <span class="font-extrabold text-gray-900">🕒 LONGEVITY:</span>
+            <span class="text-gray-700 font-semibold">${product.longevity || '+12 HOURS (ثبات استثنائي)'}</span>
+          </div>
+          <div class="bg-gray-50 border border-gray-200/90 rounded-2xl p-2.5 flex items-center justify-between text-xs">
+            <span class="font-extrabold text-gray-900">➕ PROJECTION:</span>
+            <span class="text-gray-700 font-semibold">${product.projection || '+2.5 HOURS (هالة دافئة ساحرة)'}</span>
+          </div>
+        </div>
 
-        <!-- NOTES & HINTS Pyramid like Lail -->
-        ${product.notes ? `
-          <div class="space-y-2 border-t border-b border-gray-100 py-3">
-            <h4 class="text-xs font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
-              <span>الهرم العطري</span>
-              <span class="text-[10px] text-gray-400 font-normal">| NOTES & HINTS</span>
-            </h4>
-            <div class="grid grid-cols-1 gap-2 text-xs">
-              <div class="p-2.5 rounded-xl bg-purple-50/50 border border-purple-100/80">
-                <span class="font-bold text-[#4E3D97]">🌸 قمة العطر (Top):</span>
-                <span class="text-gray-700 mr-1">${product.notes.top}</span>
+        <!-- Scent Notes & Hints Box -->
+        <div class="bg-gray-50 rounded-2xl p-3.5 border border-gray-200/80 space-y-2">
+          <div class="flex items-center justify-between text-xs border-b border-gray-200/70 pb-2">
+            <span class="font-black text-gray-900 uppercase tracking-wider">الهرم العطري والمكونات:</span>
+            <span class="text-[10px] text-gray-400 font-bold uppercase">NOTES & HINTS</span>
+          </div>
+
+          <!-- Raw Ingredients Summary -->
+          <p class="text-xs text-gray-700 leading-relaxed font-medium">
+            ${product.notes_list ? product.notes_list.join('، ') : (product.notes ? `${product.notes.top}، ${product.notes.heart}، ${product.notes.base}` : '')}
+          </p>
+
+          <!-- Pyramid Breakdown -->
+          ${product.notes ? `
+            <div class="grid grid-cols-1 gap-1.5 pt-1 text-[11px]">
+              <div class="p-2 rounded-xl bg-purple-50/70 border border-purple-100/90 flex items-start gap-1.5">
+                <span class="font-black text-[#4E3D97] whitespace-nowrap">🌸 قمة العطر:</span>
+                <span class="text-gray-800 font-medium">${product.notes.top}</span>
               </div>
-              <div class="p-2.5 rounded-xl bg-amber-50/50 border border-amber-100/80">
-                <span class="font-bold text-amber-900">🌿 قلب العطر (Heart):</span>
-                <span class="text-gray-700 mr-1">${product.notes.heart}</span>
+              <div class="p-2 rounded-xl bg-amber-50/70 border border-amber-100/90 flex items-start gap-1.5">
+                <span class="font-black text-amber-900 whitespace-nowrap">🌿 قلب العطر:</span>
+                <span class="text-gray-800 font-medium">${product.notes.heart}</span>
               </div>
-              <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80">
-                <span class="font-bold text-gray-900">🪵 قاعدة العطر (Base):</span>
-                <span class="text-gray-700 mr-1">${product.notes.base}</span>
+              <div class="p-2 rounded-xl bg-slate-100/80 border border-slate-200/90 flex items-start gap-1.5">
+                <span class="font-black text-gray-900 whitespace-nowrap">🪵 قاعدة العطر:</span>
+                <span class="text-gray-800 font-medium">${product.notes.base}</span>
               </div>
             </div>
-          </div>
-        ` : ''}
+          ` : ''}
+        </div>
 
-        <!-- Size selection in modal -->
+        <!-- Size Selection (30ml vs 50ml) -->
         <div>
-          <label class="block text-xs font-bold text-gray-700 mb-2">اختر الحجم المطلوب:</label>
+          <label class="block text-xs font-bold text-gray-700 mb-2">اختر الحجم:</label>
           <div class="grid grid-cols-2 gap-2.5">
             ${Object.keys(product.prices || {}).map(sz => {
               const pPrice = product.prices[sz];
@@ -470,12 +516,12 @@ function openProductModal(productId) {
               return `
                 <button type="button" 
                         onclick="modalSelectSize('${product.id}', '${sz}')" 
-                        class="py-3 px-3 rounded-2xl text-xs font-bold transition-all border text-center ${
+                        class="py-2.5 px-3 rounded-2xl text-xs font-bold transition-all border text-center ${
                           isSel 
                             ? 'bg-[#4E3D97] border-[#4E3D97] text-white shadow-md' 
                             : 'bg-white border-gray-200 text-gray-700 hover:border-gray-400 hover:text-gray-900'
                         }">
-                  <div class="font-black text-sm">${sz} مل</div>
+                  <div class="font-black text-xs sm:text-sm">${sz} مل ${sz === '50' ? '(الحجم القياسي)' : ''}</div>
                   <div class="text-[11px] font-semibold ${isSel ? 'text-purple-200' : 'text-gray-500'}">${pPrice} ${currency}</div>
                 </button>
               `;
@@ -483,23 +529,44 @@ function openProductModal(productId) {
           </div>
         </div>
 
-        <!-- Pricing & CTAs -->
-        <div class="pt-3 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <!-- Pricing Display -->
+        <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+          <div class="text-xs text-gray-500 font-bold">
+            السعر للحجم ${selectedSize} مل:
+          </div>
           <div class="flex items-baseline gap-2">
-            <span class="text-sm text-gray-400 line-through">${oldPrice} ${currency}</span>
-            <span class="text-3xl font-black text-gray-900 font-display">${currentPrice}</span>
-            <span class="text-sm font-bold text-gray-600">${currency}</span>
+            <span class="text-xs sm:text-sm text-gray-400 line-through">${oldPrice} ${currency}</span>
+            <span class="text-2xl sm:text-3xl font-black text-gray-900 font-display">${currentPrice}</span>
+            <span class="text-xs sm:text-sm font-bold text-gray-600">${currency}</span>
+            ${savings > 0 ? `
+              <span class="bg-red-50 text-red-600 border border-red-200 text-[10px] font-black px-2 py-0.5 rounded-md">
+                وفر ${savings} ${currency}
+              </span>
+            ` : ''}
           </div>
+        </div>
 
-          <div class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="addToCart('${product.id}', '${selectedSize}'); closeProductModal();" class="flex-1 sm:flex-none bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-bold py-3 px-5 rounded-2xl text-xs transition-all shadow-sm flex items-center justify-center gap-2">
-              <svg class="w-4 h-4 text-[#4E3D97]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-              <span>أضف للسلة</span>
-            </button>
-            <button onclick="instantBuy('${product.id}', '${selectedSize}'); closeProductModal();" class="flex-1 sm:flex-none bg-[#4E3D97] hover:bg-[#3d2f78] text-white font-bold py-3 px-6 rounded-2xl text-xs transition-all shadow-md flex items-center justify-center gap-2">
-              <span>طلب فوري عبر واتساب ⚡</span>
-            </button>
-          </div>
+        <!-- CTAs: Add to Cart + Instant WhatsApp Checkout -->
+        <div class="grid grid-cols-2 gap-2 pt-1">
+          <button onclick="addToCart('${product.id}', '${selectedSize}'); closeProductModal();" 
+                  class="bg-white hover:bg-gray-50 text-gray-900 border border-gray-300 font-black py-3 px-3 rounded-2xl text-xs transition-all shadow-sm flex items-center justify-center gap-1.5 hover:border-[#4E3D97]">
+            <svg class="w-4 h-4 text-[#4E3D97]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+            <span>أضف هذا العطر للسلة</span>
+          </button>
+
+          <button onclick="instantBuy('${product.id}', '${selectedSize}'); closeProductModal();" 
+                  class="bg-[#4E3D97] hover:bg-[#3d2f78] text-white font-black py-3 px-3 rounded-2xl text-xs transition-all shadow-md flex items-center justify-center gap-1.5 active:scale-95">
+            <span>⚡ طلب فوري</span>
+          </button>
+        </div>
+
+        <!-- 3D Studio Live Switcher & Spray Button -->
+        <div>
+          <button onclick="closeProductModal(); showIn3D('${product.id}');" 
+                  class="w-full bg-gray-50 hover:bg-purple-50 text-gray-800 hover:text-[#4E3D97] border border-gray-200 hover:border-[#4E3D97]/40 font-bold py-2.5 px-3 rounded-2xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-xs">
+            <span>✨ عرض وتجربة الرشة في استوديو 3D</span>
+            <span>←</span>
+          </button>
         </div>
 
       </div>
@@ -508,11 +575,6 @@ function openProductModal(productId) {
   `;
 
   modal.classList.remove("hidden");
-}
-
-function modalSelectSize(productId, size) {
-  selectProductSize(productId, size);
-  openProductModal(productId);
 }
 
 function closeProductModal() {
